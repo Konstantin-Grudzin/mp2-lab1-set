@@ -1,0 +1,7 @@
+﻿  sample_prime_numbers.cpp
+  Создание кода
+  Previous IPDB not found, fall back to full compilation.
+C:\Users\WIN10\Documents\GitHub\mp2-lab1-set\src\tbitfield.cpp(209): warning C4715: operator<<: значение возвращается не при всех путях выполнения
+  All 20 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Создание кода завершено
+  sample_prime_numbers.vcxproj -> C:\Users\WIN10\Documents\GitHub\mp2-lab1-set\sln\vc10\Release\sample_prime_numbers.exe
