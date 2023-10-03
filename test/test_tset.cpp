@@ -294,3 +294,44 @@ TEST(TSet, check_negation_operator)
 
   EXPECT_EQ(expSet, set1);
 }
+
+
+//1
+TEST(TSet, throws_when_insert_non_existing_element_out_of_range_)
+{
+	const int size = 4;
+	TSet set(size);
+	
+
+	ASSERT_ANY_THROW(set.InsElem(5));
+}
+
+//2
+TEST(TSet, throws_when_insert_neg_element)
+{
+	const int size = 4;
+	TSet set(size);
+
+
+	ASSERT_ANY_THROW(set.InsElem(-1));
+}
+
+//3
+TEST(TSet, throws_when_delete_non_existing_element_out_of_range_)
+{
+	const int size = 4;
+	TSet set(size);
+
+
+	ASSERT_ANY_THROW(set.DelElem(5));
+}
+
+//4
+TEST(TSet, throws_when_delete_neg_element)
+{
+	const int size = 4;
+	TSet set(size);
+
+
+	ASSERT_ANY_THROW(set.DelElem(-1));
+}

@@ -306,3 +306,44 @@ TEST(TBitField, bitfields_with_different_bits_are_not_equal)
 
   EXPECT_NE(bf1, bf2);
 }
+
+
+//1
+TEST(TBitField, invert_plus_or_operator_on_different_size_bitfield)
+{
+    const int firstSze = 4, secondSize = 8;
+    TBitField firstBf(firstSze), negFirstBf(firstSze), secondBf(secondSize), testBf(secondSize);
+    // firstBf = 0001
+    firstBf.SetBit(0);
+    negFirstBf = ~firstBf;
+    // negFirstBf =   1110
+    // secondBf = 00011000
+    secondBf.SetBit(3);
+    secondBf.SetBit(4);
+    // testBf = 00011110
+    testBf.SetBit(4);
+    testBf.SetBit(3);
+    testBf.SetBit(2);
+    testBf.SetBit(1);
+
+    EXPECT_EQ(secondBf | negFirstBf, testBf);
+}
+
+//2
+TEST(TBitField, compare_bitfields_of_non_equal_size)
+{
+    const int size = 2,size1=3;
+    TBitField bf1(size), bf2(size1);
+    EXPECT_NE(bf1, bf2);
+}
+
+//3
+TEST(TBitField, can_set_setted_bit)
+{
+    const int size = 2;
+    TBitField bf1(size);
+    bf1.SetBit(0);
+    bf1.SetBit(0);
+
+    EXPECT_EQ(1, bf1.GetBit(0));
+}

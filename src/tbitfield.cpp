@@ -130,21 +130,16 @@ TBitField TBitField::operator|(const TBitField &bf) // операция "или"
 {
 	int maxlen = max(GetLength(), bf.GetLength());
 	int minlen = min(GetLength(), bf.GetLength());
-	TBitField A(maxlen);
+	TBitField A(1);
+	if (GetLength() > bf.GetLength())
+		A = *this;
+	else
+		A = bf;
 	int i = 0;
-	for (; i <= GetMemIndex(minlen); ++i)
+	for (; i < minlen; ++i)
 	{
-		A.pMem[i] = pMem[i] | bf.pMem[i];
-	}
-	while (i <= GetMemIndex(GetLength()))
-	{
-		A.pMem[i] = pMem[i];
-		i++;
-	}
-	while (i <= bf.GetMemIndex(bf.GetLength()))
-	{
-		A.pMem[i] = bf.pMem[i];
-		i++;
+		if (GetBit(i) || bf.GetBit(i))
+			A.SetBit(i);
 	}
 	return A;
 }
