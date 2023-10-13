@@ -61,7 +61,7 @@ TSet& TSet::operator=(const TSet &s) // присваивание
 {
     MaxPower = s.GetMaxPower();
     BitField = TBitField(MaxPower);
-    BitField = BitField | s.BitField;
+    BitField = s.BitField;
     return *this;
 }
 
@@ -69,13 +69,7 @@ int TSet::operator==(const TSet &s) const // сравнение
 {
     if (MaxPower != s.GetMaxPower())
         return 0;
-    int minlen = min(MaxPower, s.GetMaxPower());
-    for (int i = 0; i < minlen; ++i)
-    {
-        if (BitField.GetBit(i) != s.BitField.GetBit(i))
-            return 0;
-    }
-    return 1;
+    return BitField==s.BitField;
 }
 
 int TSet::operator!=(const TSet &s) const // сравнение
@@ -117,6 +111,8 @@ TSet TSet::operator*(const TSet &s) // пересечение
 
 TSet TSet::operator~(void) // дополнение
 {
+    //из реализации в битовых полях предполагается, 
+    //что задействуются только действительные элементы
     TSet A(MaxPower);
     A.BitField = ~BitField;
     return A;
@@ -127,7 +123,7 @@ TSet TSet::operator~(void) // дополнение
 istream &operator>>(istream &istr, TSet &s) // ввод
 {
     const int x = s.MaxPower;
-    for (int i = 0; i <= x; ++i)
+    for (int i = 0; i < x; ++i)
     {
         int val; istr >> val;
         s.InsElem(val);
@@ -138,9 +134,10 @@ istream &operator>>(istream &istr, TSet &s) // ввод
 ostream& operator<<(ostream &ostr, const TSet &s) // вывод
 {
     const int x = s.MaxPower;
-    for (int i = 0; i <= x; ++i)
+    for (int i = 0; i < x; ++i)
     {
-        ostr << s.IsMember(i) << " ";
+        if(s.IsMember(i))
+            ostr << i << " ";
     }
     return ostr;
 }
